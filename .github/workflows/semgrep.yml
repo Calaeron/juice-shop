@@ -1,0 +1,19 @@
+
+name: semgrep
+
+on: [push]
+
+jobs:
+  self_test:
+    runs-on: ubuntu-latest
+    name: A job to run semgrep
+    steps:
+      - uses: actions/checkout@v2
+      - name: semgrep action step
+        id: semgrep
+        uses: returntocorp/semgrep-action@develop
+        with:
+          config: tests/self_test.yml
+          targets: tests'
+      - name: Get the output from semgrep
+        run: echo "semgrep ${{ steps.semgrep.outputs.output }}"
